@@ -7,11 +7,13 @@ import ColorCode from "./ColorCode";
 interface GeneratorProps {
   currentHex: string;
   currentRgb: string;
+  currentCmyk: string;
 }
 
 const initialState = {
-  currentRgb: "#000000",
-  currentHex: "rgb(0, 0, 0)",
+  currentHex: "#000000",
+  currentRgb: "rgb(0, 0, 0)",
+  currentCmyk: "cmyk(0%, 0%, 0%, 100%)"
 };
 
 export default class Generator extends Component {
@@ -19,25 +21,32 @@ export default class Generator extends Component {
 
   constructor(props: GeneratorProps) {
     super(props);
-    this.generateRgb = this.generateRgb.bind(this);
     this.generateHex = this.generateHex.bind(this);
+    this.generateRgb = this.generateRgb.bind(this);
+    this.generateCmyk = this.generateCmyk.bind(this);
   }
 
-  generateHex(array: number[]) {
+  generateHex(rgb: number[]) {
     let hexList: string[] = [];
     let hex: string;
 
     for (let i = 0; i < 3; i++) {
-      let number = array[i].toString(16);
-      number.length == 1 ? number = `0${number}` : number
+      let number = rgb[i].toString(16);
+      number.length == 1 ? (number = `0${number}`) : number;
 
-      hexList.push(`${number}`)
+      hexList.push(`${number}`);
     }
-    hex = `#${hexList.join('')}`;
-    this.setState({ currentHex: hex });
-    console.log(`%c${this.state.currentHex} | ${this.state.currentRgb}`,
-    `background-color: ${this.state.currentHex}`,
+    hex = `#${hexList.join("")}`;
+    this.setState({
+      currentHex: hex },
+      () => console.log(
+        `%c${this.state.currentHex} | ${this.state.currentRgb} | ${this.state.currentCmyk}`,
+        `background-color: ${this.state.currentHex};
+        height: 5px;
+        width: 5px;`
+      )
     );
+    
   }
 
   generateRgb() {
@@ -50,9 +59,27 @@ export default class Generator extends Component {
       currentRgb: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`,
     });
     this.generateHex(rgb);
+    this.generateCmyk(rgb);
     return rgb;
   }
 
+  generateCmyk(rgb: number[]) {
+    let c = 1 - (rgb[0] / 255),
+        m = 1 - (rgb[1] / 255),
+        y = 1 - (rgb[2] / 255),
+        k = Math.min(c, Math.min(m, y));
+
+        c = (c - k) / (1 - k);
+        m = (m - k) / (1 - k);
+        y = (y - k) / (1 - k);
+
+        c = Math.round((c * 10000) / 100);
+        m = Math.round((m * 10000) / 100);
+        y = Math.round((y * 10000) / 100);
+        k = Math.round((k * 10000) / 100);
+
+    this.setState({ currentCmyk: `cmyk(${c}%, ${m}%, ${y}%, ${k}%)`})
+  }
   render() {
     return (
       <div
@@ -66,6 +93,7 @@ export default class Generator extends Component {
           <ColorCode>
             <p>{this.state.currentHex}</p>
             <p>{this.state.currentRgb}</p>
+            <p>{this.state.currentCmyk}</p>
           </ColorCode>
         </div>
       </div>
