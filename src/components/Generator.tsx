@@ -198,7 +198,7 @@ export default class Generator extends Component {
           backgroundColor: this.state.rgb,
         }}
       >
-        <div className="flex flex-col w-64">
+        <div className="flex flex-col w-72">
           <Button func={this.newColor} />
           <ColorCode>
             <div>
