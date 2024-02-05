@@ -1,11 +1,14 @@
 "use client";
 
 import { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { linearSrgbToOklab } from "oklab";
 import Button from "./Button";
 import ColorCode from "./ColorCode";
 
 interface GeneratorProps {
+  isExpanded: boolean;
   hex: string;
   rgb: string;
   hsl: string;
@@ -15,6 +18,7 @@ interface GeneratorProps {
 }
 
 const initialState = {
+  isExpanded: false,
   hex: "#000000",
   rgb: "rgb(0, 0, 0)",
   hsl: "hsl(0º, 0%, 0%)",
@@ -55,7 +59,8 @@ export default class Generator extends Component {
     }
     hex = "#" + hexList.join("");
     this.setState({ hex: hex }, () => {
-      console.groupCollapsed("%c" + this.state.hex, 
+      console.groupCollapsed(
+        "%c" + this.state.hex,
         `background-color: ${this.state.hex};
         height: 5px;
         width: 5px;`
@@ -193,15 +198,45 @@ export default class Generator extends Component {
           backgroundColor: this.state.rgb,
         }}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col w-64">
           <Button func={this.newColor} />
           <ColorCode>
-            <p>{this.state.hex}</p>
-            <p>{this.state.rgb}</p>
-            <p>{this.state.hsl}</p>
-            <p>{this.state.hsv}</p>
-            <p>{this.state.cmyk}</p>
-            <p>{this.state.oklab}</p>
+            <div>
+              {this.state.isExpanded ? (
+                <>
+                  <p>{this.state.hex}</p>
+                  <p>{this.state.rgb}</p>
+                  <p>{this.state.hsl}</p>
+                  <p>{this.state.hsv}</p>
+                  <p>{this.state.cmyk}</p>
+                  <p>{this.state.oklab}</p>
+                  <span
+                    className="text-white/50"
+                    onClick={() => this.setState({ isExpanded: false })}
+                  >
+                    Show less
+                    <FontAwesomeIcon
+                      className="px-2 align-center"
+                      icon={faCaretUp}
+                    />
+                  </span>
+                </>
+              ) : (
+                <>
+                  <p>{this.state.hex}</p>
+                  <span
+                    className="text-white/50"
+                    onClick={() => this.setState({ isExpanded: true })}
+                  >
+                    Show more
+                    <FontAwesomeIcon
+                      className="px-2 align-center"
+                      icon={faCaretDown}
+                    />
+                  </span>
+                </>
+              )}
+            </div>
           </ColorCode>
         </div>
       </div>
