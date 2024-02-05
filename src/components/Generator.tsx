@@ -28,15 +28,19 @@ export default class Generator extends Component {
 
   constructor(props: GeneratorProps) {
     super(props);
-    this.generateHex = this.generateHex.bind(this);
-    this.generateRgb = this.generateRgb.bind(this);
-    this.generateHsl = this.generateHsl.bind(this);
-    this.generateHsv = this.generateHsv.bind(this);
-    this.generateCmyk = this.generateCmyk.bind(this);
-    this.generateOklab = this.generateOklab.bind(this);
   }
 
-  generateHex(rgb: number[]) {
+  newColor = () => {
+    const rgb = this.generateRgb();
+
+    this.generateHex(rgb);
+    this.generateHsl(rgb);
+    this.generateHsv(rgb);
+    this.generateCmyk(rgb);
+    this.generateOklab(rgb);
+  }
+
+  generateHex = (rgb: number[]) => {
     const hexList: string[] = [];
     let hex: string;
 
@@ -50,39 +54,30 @@ export default class Generator extends Component {
       hexList.push(number);
     }
     hex = "#" + hexList.join("");
-    this.setState(
-      {
-        currentHex: hex,
-      },
-      () =>
-        console.log(
-          `%c${this.state}`,
-          `background-color: ${this.state.currentHex};
+    this.setState({ currentHex: hex }, () =>
+      console.log(
+        `%c${this.state}`,
+        `background-color: ${this.state.currentHex};
           height: 5px;
           width: 5px;`
-        )
+      )
     );
   }
 
-  generateRgb() {
+  generateRgb = () => {
     const rgb = [
-      Math.floor(Math.random() * 256),
-      Math.floor(Math.random() * 256),
-      Math.floor(Math.random() * 256),
+      Math.trunc(Math.random() * 256),
+      Math.trunc(Math.random() * 256),
+      Math.trunc(Math.random() * 256),
     ];
     this.setState({
       currentRgb: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`,
     });
-    this.generateHex(rgb);
-    this.generateHsl(rgb);
-    this.generateHsv(rgb);
-    this.generateCmyk(rgb);
-    this.generateOklab(rgb);
 
     return rgb;
   }
 
-  generateHsl(rgb: number[]) {
+  generateHsl = (rgb: number[]) => {
     const r = rgb[0] / 255,
       g = rgb[1] / 255,
       b = rgb[2] / 255;
@@ -115,7 +110,7 @@ export default class Generator extends Component {
     this.setState({ currentHsl: `hsl(${h}º, ${s}%, ${l}%)` });
   }
 
-  generateHsv(rgb: number[]) {
+  generateHsv = (rgb: number[]) => {
     const r = rgb[0] / 255,
       g = rgb[1] / 255,
       b = rgb[2] / 255;
@@ -158,7 +153,7 @@ export default class Generator extends Component {
     this.setState({ currentHsv: `hsv(${h}º, ${s}%, ${v}%)` });
   }
 
-  generateCmyk(rgb: number[]) {
+  generateCmyk = (rgb: number[]) => {
     let c = 1 - rgb[0] / 255,
       m = 1 - rgb[1] / 255,
       y = 1 - rgb[2] / 255,
@@ -176,7 +171,7 @@ export default class Generator extends Component {
     this.setState({ currentCmyk: `cmyk(${c}%, ${m}%, ${y}%, ${k}%)` });
   }
 
-  generateOklab(rgb: number[]) {
+  generateOklab = (rgb: number[]) => {
     rgb[0] = rgb[0] / 255;
     rgb[1] = rgb[1] / 255;
     rgb[2] = rgb[2] / 255;
@@ -198,7 +193,7 @@ export default class Generator extends Component {
         }}
       >
         <div className="flex flex-col">
-          <Button func={this.generateRgb} />
+          <Button func={this.newColor} />
           <ColorCode>
             <p>{this.state.currentHex}</p>
             <p>{this.state.currentRgb}</p>
