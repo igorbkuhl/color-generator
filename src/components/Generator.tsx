@@ -218,6 +218,7 @@ export default class Generator extends Component {
                     <FontAwesomeIcon
                       className="px-2 align-center"
                       icon={faCaretUp}
+                      width="10"
                     />
                   </span>
                 </>
@@ -232,6 +233,7 @@ export default class Generator extends Component {
                     <FontAwesomeIcon
                       className="px-2 align-center"
                       icon={faCaretDown}
+                      width="10"
                     />
                   </span>
                 </>
