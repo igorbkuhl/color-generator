@@ -38,7 +38,7 @@ export default class Generator extends Component {
     this.generateHsv(rgb);
     this.generateCmyk(rgb);
     this.generateOklab(rgb);
-  }
+  };
 
   generateHex = (rgb: number[]) => {
     const hexList: string[] = [];
@@ -54,15 +54,16 @@ export default class Generator extends Component {
       hexList.push(number);
     }
     hex = "#" + hexList.join("");
-    this.setState({ currentHex: hex }, () =>
-      console.log(
-        `%c${this.state}`,
+    this.setState({ currentHex: hex }, () => {
+      console.groupCollapsed("%c" + this.state.currentHex, 
         `background-color: ${this.state.currentHex};
-          height: 5px;
-          width: 5px;`
-      )
-    );
-  }
+        height: 5px;
+        width: 5px;`
+      );
+      console.table(this.state);
+      console.groupEnd();
+    });
+  };
 
   generateRgb = () => {
     const rgb = [
@@ -75,7 +76,7 @@ export default class Generator extends Component {
     });
 
     return rgb;
-  }
+  };
 
   generateHsl = (rgb: number[]) => {
     const r = rgb[0] / 255,
@@ -108,7 +109,7 @@ export default class Generator extends Component {
     l = Math.round(l * 100);
 
     this.setState({ currentHsl: `hsl(${h}º, ${s}%, ${l}%)` });
-  }
+  };
 
   generateHsv = (rgb: number[]) => {
     const r = rgb[0] / 255,
@@ -151,7 +152,7 @@ export default class Generator extends Component {
     v = Math.round(v * 100);
 
     this.setState({ currentHsv: `hsv(${h}º, ${s}%, ${v}%)` });
-  }
+  };
 
   generateCmyk = (rgb: number[]) => {
     let c = 1 - rgb[0] / 255,
@@ -169,7 +170,7 @@ export default class Generator extends Component {
     k = Math.round((k * 10000) / 100);
 
     this.setState({ currentCmyk: `cmyk(${c}%, ${m}%, ${y}%, ${k}%)` });
-  }
+  };
 
   generateOklab = (rgb: number[]) => {
     rgb[0] = rgb[0] / 255;
@@ -182,7 +183,7 @@ export default class Generator extends Component {
       b = oklab.b.toFixed(3);
 
     this.setState({ currentOklab: `oklab(${l}, ${a}, ${b})` });
-  }
+  };
 
   render() {
     return (
