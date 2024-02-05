@@ -6,21 +6,21 @@ import Button from "./Button";
 import ColorCode from "./ColorCode";
 
 interface GeneratorProps {
-  currentHex: string;
-  currentRgb: string;
-  currentHsl: string;
-  currentHsv: string;
-  currentCmyk: string;
-  currentOklab: string;
+  hex: string;
+  rgb: string;
+  hsl: string;
+  hsv: string;
+  cmyk: string;
+  oklab: string;
 }
 
 const initialState = {
-  currentHex: "#000000",
-  currentRgb: "rgb(0, 0, 0)",
-  currentHsl: "hsl(0º, 0%, 0%)",
-  currentHsv: "hsv(0º, 0%, 0%)",
-  currentCmyk: "cmyk(0%, 0%, 0%, 100%)",
-  currentOklab: "oklab(0, 0, 0)",
+  hex: "#000000",
+  rgb: "rgb(0, 0, 0)",
+  hsl: "hsl(0º, 0%, 0%)",
+  hsv: "hsv(0º, 0%, 0%)",
+  cmyk: "cmyk(0%, 0%, 0%, 100%)",
+  oklab: "oklab(0, 0, 0)",
 };
 
 export default class Generator extends Component {
@@ -54,9 +54,9 @@ export default class Generator extends Component {
       hexList.push(number);
     }
     hex = "#" + hexList.join("");
-    this.setState({ currentHex: hex }, () => {
-      console.groupCollapsed("%c" + this.state.currentHex, 
-        `background-color: ${this.state.currentHex};
+    this.setState({ hex: hex }, () => {
+      console.groupCollapsed("%c" + this.state.hex, 
+        `background-color: ${this.state.hex};
         height: 5px;
         width: 5px;`
       );
@@ -72,7 +72,7 @@ export default class Generator extends Component {
       Math.trunc(Math.random() * 256),
     ];
     this.setState({
-      currentRgb: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`,
+      rgb: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`,
     });
 
     return rgb;
@@ -108,7 +108,7 @@ export default class Generator extends Component {
     s = Math.round(s * 100);
     l = Math.round(l * 100);
 
-    this.setState({ currentHsl: `hsl(${h}º, ${s}%, ${l}%)` });
+    this.setState({ hsl: `hsl(${h}º, ${s}%, ${l}%)` });
   };
 
   generateHsv = (rgb: number[]) => {
@@ -151,7 +151,7 @@ export default class Generator extends Component {
     s = Math.round(s * 100);
     v = Math.round(v * 100);
 
-    this.setState({ currentHsv: `hsv(${h}º, ${s}%, ${v}%)` });
+    this.setState({ hsv: `hsv(${h}º, ${s}%, ${v}%)` });
   };
 
   generateCmyk = (rgb: number[]) => {
@@ -169,7 +169,7 @@ export default class Generator extends Component {
     y = Math.round((y * 10000) / 100);
     k = Math.round((k * 10000) / 100);
 
-    this.setState({ currentCmyk: `cmyk(${c}%, ${m}%, ${y}%, ${k}%)` });
+    this.setState({ cmyk: `cmyk(${c}%, ${m}%, ${y}%, ${k}%)` });
   };
 
   generateOklab = (rgb: number[]) => {
@@ -182,7 +182,7 @@ export default class Generator extends Component {
       a = oklab.a.toFixed(3),
       b = oklab.b.toFixed(3);
 
-    this.setState({ currentOklab: `oklab(${l}, ${a}, ${b})` });
+    this.setState({ oklab: `oklab(${l}, ${a}, ${b})` });
   };
 
   render() {
@@ -190,18 +190,18 @@ export default class Generator extends Component {
       <div
         className="flex justify-center items-center h-screen w-screen"
         style={{
-          backgroundColor: this.state.currentRgb,
+          backgroundColor: this.state.rgb,
         }}
       >
         <div className="flex flex-col">
           <Button func={this.newColor} />
           <ColorCode>
-            <p>{this.state.currentHex}</p>
-            <p>{this.state.currentRgb}</p>
-            <p>{this.state.currentHsl}</p>
-            <p>{this.state.currentHsv}</p>
-            <p>{this.state.currentCmyk}</p>
-            <p>{this.state.currentOklab}</p>
+            <p>{this.state.hex}</p>
+            <p>{this.state.rgb}</p>
+            <p>{this.state.hsl}</p>
+            <p>{this.state.hsv}</p>
+            <p>{this.state.cmyk}</p>
+            <p>{this.state.oklab}</p>
           </ColorCode>
         </div>
       </div>
