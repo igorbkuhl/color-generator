@@ -1,21 +1,41 @@
 import { useState } from "react";
 
 export default function useRgb() {
-  const [rgb, setRgb] = useState("rgb(0, 0, 0)");
+  const [rgb, setRgb] = useState([0, 0, 0]);
+  const rgbArray: number[] = [];
 
-  function generateRgb() {
-    const randomArray = [
-      Math.trunc(Math.random() * 256),
-      Math.trunc(Math.random() * 256),
-      Math.trunc(Math.random() * 256),
-    ];
-    setRgb(`rgb(${randomArray[0]}, ${randomArray[1]}, ${randomArray[2]})`);
-    return randomArray;
+  const hexToRgb = (hex: string[]) => {
+    for (let i = 0; i < 3; i++) {
+      const rgbNumber = parseInt(hex[i], 16);
+      rgbArray.push(rgbNumber);
+    }
+    setRgb(rgbArray);
   }
 
   return {
     rgb,
-    setRgb,
-    generateRgb,
-  };
+    hexToRgb
+  }
 }
+
+
+// export default function useRgb() {
+//   const [rgb, setRgb] = useState([0, 0, 0]);
+//   let rgbArray: number[] = [];
+
+//   const generateRgb = () => {
+//     rgbArray = [
+//       Math.trunc(Math.random() * 256),
+//       Math.trunc(Math.random() * 256),
+//       Math.trunc(Math.random() * 256),
+//     ]
+//     setRgb(rgbArray);
+//   }
+
+//   return {
+//     rgb,
+//     setRgb,
+//     rgbArray,
+//     generateRgb
+//   };
+// }
