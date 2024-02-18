@@ -1,6 +1,7 @@
 interface ColorCodeProps {
   hex: string;
   rgb: string;
+  hsl: string;
 }
 
 export default function ColorCode(props: ColorCodeProps) {
@@ -9,6 +10,7 @@ export default function ColorCode(props: ColorCodeProps) {
       mt-2 p-5 rounded-md text-center">
         <p>{props.hex}</p>
         <p>{props.rgb}</p>
+        <p>{props.hsl}</p>
     </div>
   )
 }
