@@ -5,18 +5,16 @@ import Button from "@/components/Button";
 import ColorCode from "./ColorCode";
 
 export default function Generator() {
-  const { hex, generateHex } = useHex();
-  const { rgb, hexToRgb } = useRgb();
+  const { hex, rgbToHex } = useHex();
+  const { rgb, generateRgb } = useRgb();
   const colors = {
     hex: `#${hex[0]}${hex[1]}${hex[2]}`,
     rgb: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`,
   }
 
   useEffect(() => {
-    const newHex = generateHex();
-    console.log(newHex);
-    hexToRgb(newHex);
-    console.log(rgb);
+    const newRgb = generateRgb();
+    rgbToHex(newRgb);
   }, [])
 
   return (
@@ -28,12 +26,10 @@ export default function Generator() {
     >
       <div className="flex flex-col w-72">
         <Button func={() => {
-          const newHex = generateHex();
-          console.log(newHex);
-          hexToRgb(newHex);
-          console.log(rgb);
+          const newRgb = generateRgb();
+          rgbToHex(newRgb);
           console.groupCollapsed(
-            "%c" + hex,
+            "%c" + colors.hex,
             `background-color: ${colors.hex}`
           )
           console.table(colors)
