@@ -6,6 +6,7 @@ import useRgb from "@/hooks/useRgb";
 import useHsl from "@/hooks/useHsl";
 import useHsv from "@/hooks/useHsv";
 import useCmyk from "@/hooks/useCmyk";
+import useOklab from "@/hooks/useOklab";
 
 export default function Generator() {
   const { hex, rgbToHex } = useHex();
@@ -13,6 +14,7 @@ export default function Generator() {
   const { hsl, rgbToHsl } = useHsl();
   const { hsv, rgbToHsv } = useHsv();
   const { cmyk, rgbToCmyk } = useCmyk();
+  const { oklab,rgbToOklab } = useOklab();
 
   const colors = {
     hex: `#${hex[0]}${hex[1]}${hex[2]}`,
@@ -20,6 +22,7 @@ export default function Generator() {
     hsl: `hsl(${hsl[0]}º, ${hsl[1]}%, ${hsl[2]}%)`,
     hsv: `hsv(${hsv[0]}º, ${hsv[1]}%, ${hsv[2]}%)`,
     cmyk: `cmyk(${cmyk[0]}%, ${cmyk[1]}%, ${cmyk[2]}%, ${cmyk[3]}%)`,
+    oklab: `oklab(${oklab[0]} ${oklab[1]} ${oklab[2]})`,
   };
 
   useEffect(() => {
@@ -28,6 +31,7 @@ export default function Generator() {
     rgbToHsl(newRgb);
     rgbToHsv(newRgb);
     rgbToCmyk(newRgb);
+    rgbToOklab(newRgb);
   }, []);
 
   return (
@@ -45,6 +49,7 @@ export default function Generator() {
             rgbToHsl(newRgb);
             rgbToHsv(newRgb);
             rgbToCmyk(newRgb);
+            rgbToOklab(newRgb);
             console.groupCollapsed(
               "%c" + colors.hex,
               `background-color: ${colors.hex}`
@@ -59,6 +64,7 @@ export default function Generator() {
           hsl={colors.hsl}
           hsv={colors.hsv}
           cmyk={colors.cmyk}
+          oklab={colors.oklab}
         />
       </div>
     </div>
