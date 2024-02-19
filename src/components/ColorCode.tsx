@@ -3,6 +3,7 @@ interface ColorCodeProps {
   rgb: string;
   hsl: string;
   hsv: string;
+  cmyk: string;
 }
 
 export default function ColorCode(props: ColorCodeProps) {
@@ -13,6 +14,7 @@ export default function ColorCode(props: ColorCodeProps) {
         <p>{props.rgb}</p>
         <p>{props.hsl}</p>
         <p>{props.hsv}</p>
+        <p>{props.cmyk}</p>
     </div>
   )
 }
