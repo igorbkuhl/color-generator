@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import GenerateButton from './GenerateButton.vue';
-import ColorCode from './ColorCode.vue';
+import GenerateButton from "./GenerateButton.vue";
+import ColorCode from "./ColorCode.vue";
+import { useRgbStore } from "../stores/rgbStore";
+
+const rgb = useRgbStore();
 </script>
 
 <template>
-  <div class="main">
+  <div class="flex flex-col w-72">
     <GenerateButton />
-    <ColorCode hex="a" />
+    <ColorCode :rgb="rgb.fullRgb" />
   </div>
 </template>
-
-<style scoped>
-.main {
-  width: 25em;
-  height: 18em;
-}
-</style>
