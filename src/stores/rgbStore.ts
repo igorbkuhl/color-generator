@@ -18,8 +18,7 @@ export const useRgbStore = defineStore("rgb", {
       this.fullRgb = `
         rgb(${this.rgbArray[0]},
         ${this.rgbArray[1]},
-        ${this.rgbArray[2]})
-      `;
+        ${this.rgbArray[2]})`;
 
       return this.rgbArray;
     },
