@@ -4,7 +4,7 @@ export const useRgbStore = defineStore("rgb", {
   state: () => {
     return {
       rgbArray: [0, 0, 0],
-      fullRgb: "",
+      fullRgb: "rgb(0, 0, 0)",
     };
   },
   actions: {
