@@ -15,11 +15,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <p>{{ rgb }}</p>
+  <p class="bg-slate-800/50 backdrop-blur-sm
+  mt-2 p-5 rounded-md text-center"
+  >
+    {{ rgb }}
+  </p>
 </template>
-
-<style scoped>
-p {
-  text-align: center;
-}
-</style>
