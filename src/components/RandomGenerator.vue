@@ -7,8 +7,13 @@ const rgb = useRgbStore();
 </script>
 
 <template>
-  <div class="flex flex-col w-72">
-    <GenerateButton />
-    <ColorCode :rgb="rgb.fullRgb" />
+  <div
+    class="flex justify-center items-center h-screen"
+    :style="{ 'background-color': rgb.fullRgb }"
+  >
+    <div class="flex flex-col w-72">
+      <GenerateButton />
+      <ColorCode :rgb="rgb.fullRgb" />
+    </div>
   </div>
 </template>
