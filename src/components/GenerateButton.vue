@@ -1,26 +1,15 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { useRgbStore } from "@/stores/useRgb.ts"
+<script setup lang="ts">
+import { useRgbStore } from "../stores/rgbStore";
 
-export default defineComponent({
-  data() {
-    return {
-      colors: {
-        // hex: `#${hex[0]}${hex[1]}${hex[2]}`,
-        // rgb: `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
-      }
-    }
-  }
-})
+let rgb = useRgbStore();
 </script>
 
 <template>
-  <button>clica</button>
+  <button
+    @click="rgb.generateRgb()"
+    class="text-white p-4 border-2 border-white rounded-md
+    bg-slate-800/50 backdrop-blur-sm"
+  >
+    Generate
+  </button>
 </template>
-
-<style scoped>
-button {
-  height: 5em;
-  width: 100%;
-}
-</style>
