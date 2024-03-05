@@ -20,7 +20,10 @@ const newColor = () => {
   >
     <div class="flex flex-col w-72">
       <GenerateButton :func="newColor" />
-      <ColorCode :rgb="rgb.fullRgb" :hex="hex.fullHex" />
+      <ColorCode>
+        <p>{{ hex.fullHex }}</p>
+        <p>{{ rgb.fullRgb }}</p>
+      </ColorCode>
     </div>
   </div>
 </template>
