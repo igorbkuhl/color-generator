@@ -3,14 +3,17 @@ import GenerateButton from "./GenerateButton.vue";
 import ColorCode from "./ColorCode.vue";
 import { useRgbStore } from "../stores/rgbStore";
 import { useHexStore } from "../stores/hexStore";
+import { useHslStore } from "../stores/hslStore";
 
 const rgb = useRgbStore();
 const hex = useHexStore();
+const hsl = useHslStore();
 
 const newColor = () => {
   const newRgb = rgb.generateRgb();
-  hex.toHex(newRgb)
-}
+  hex.toHex(newRgb);
+  hsl.toHsl(newRgb);
+};
 </script>
 
 <template>
@@ -23,6 +26,7 @@ const newColor = () => {
       <ColorCode>
         <p>{{ hex.fullHex }}</p>
         <p>{{ rgb.fullRgb }}</p>
+        <p>{{ hsl.fullHsl }}</p>
       </ColorCode>
     </div>
   </div>
