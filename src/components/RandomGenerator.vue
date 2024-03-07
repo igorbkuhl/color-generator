@@ -5,17 +5,20 @@ import { useRgbStore } from "../stores/rgbStore";
 import { useHexStore } from "../stores/hexStore";
 import { useHslStore } from "../stores/hslStore";
 import { useHsvStore } from "../stores/hsvStore";
+import { useCmykStore } from "../stores/cmykStore";
 
 const rgb = useRgbStore();
 const hex = useHexStore();
 const hsl = useHslStore();
 const hsv = useHsvStore();
+const cmyk = useCmykStore();
 
 const newColor = () => {
   const newRgb = rgb.generateRgb();
   hex.toHex(newRgb);
   hsl.toHsl(newRgb);
-  hsv.toHsv(newRgb)
+  hsv.toHsv(newRgb);
+  cmyk.toCmyk(newRgb);
 };
 </script>
 
@@ -31,6 +34,7 @@ const newColor = () => {
         <p>{{ rgb.fullRgb }}</p>
         <p>{{ hsl.fullHsl }}</p>
         <p>{{ hsv.fullHsv }}</p>
+        <p>{{ cmyk.fullCmyk }}</p>
       </ColorCode>
     </div>
   </div>
