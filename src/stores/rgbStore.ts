@@ -14,7 +14,6 @@ export const useRgbStore = defineStore("rgb", {
         Math.trunc(Math.random() * 256),
         Math.trunc(Math.random() * 256),
       ];
-      console.log(this.rgbArray);
       this.fullRgb = `rgb(${this.rgbArray[0]}, ${this.rgbArray[1]}, ${this.rgbArray[2]})`;
 
       return this.rgbArray;
