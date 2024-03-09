@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import GenerateButton from "./GenerateButton.vue";
 import ColorCode from "./ColorCode.vue";
 import { useRgbStore } from "../stores/rgbStore";
@@ -15,6 +16,8 @@ const hsv = useHsvStore();
 const cmyk = useCmykStore();
 const oklab = useOklabStore();
 
+let isExpanded = ref(false);
+
 const newColor = () => {
   const newRgb = rgb.generateRgb();
   hex.toHex(newRgb);
@@ -22,6 +25,10 @@ const newColor = () => {
   hsv.toHsv(newRgb);
   cmyk.toCmyk(newRgb);
   oklab.toOklab(newRgb);
+};
+
+const expandDetails = () => {
+  isExpanded.value = !isExpanded.value;
 };
 </script>
 
@@ -33,12 +40,25 @@ const newColor = () => {
     <div class="flex flex-col w-72">
       <GenerateButton :func="newColor" />
       <ColorCode>
-        <p>{{ hex.fullHex }}</p>
-        <p>{{ rgb.fullRgb }}</p>
-        <p>{{ hsl.fullHsl }}</p>
-        <p>{{ hsv.fullHsv }}</p>
-        <p>{{ cmyk.fullCmyk }}</p>
-        <p>{{ oklab.fullOklab }}</p>
+        <div v-if="isExpanded">
+          <p>{{ hex.fullHex }}</p>
+          <p>{{ rgb.fullRgb }}</p>
+          <p>{{ hsl.fullHsl }}</p>
+          <p>{{ hsv.fullHsv }}</p>
+          <p>{{ cmyk.fullCmyk }}</p>
+          <p>{{ oklab.fullOklab }}</p>
+          <span @click="expandDetails">
+            Show less
+            <i class="fa-solid fa-caret-up"></i>
+          </span>
+        </div>
+        <div v-else>
+          <p>{{ hex.fullHex }}</p>
+          <span @click="expandDetails">
+            Show more
+            <i class="fa-solid fa-caret-down"></i>
+          </span>
+        </div>
       </ColorCode>
     </div>
   </div>
