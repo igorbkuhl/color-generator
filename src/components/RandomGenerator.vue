@@ -16,7 +16,7 @@ const hsv = useHsvStore();
 const cmyk = useCmykStore();
 const oklab = useOklabStore();
 
-let isExpanded = ref(false);
+const isExpanded = ref(false);
 
 const newColor = () => {
   const newRgb = rgb.generateRgb();
@@ -25,6 +25,20 @@ const newColor = () => {
   hsv.toHsv(newRgb);
   cmyk.toCmyk(newRgb);
   oklab.toOklab(newRgb);
+
+  console.groupCollapsed(
+    "%c" + hex.fullHex,
+    `background-color: ${hex.fullHex}`
+  );
+  console.table({
+    hex: hex.fullHex,
+    rgb: rgb.fullRgb,
+    hsl: hsl.fullHsl,
+    hsv: hsv.fullHsv,
+    cmyk: cmyk.fullCmyk,
+    oklab: oklab.fullOklab,
+  });
+  console.groupEnd();
 };
 
 const expandDetails = () => {
