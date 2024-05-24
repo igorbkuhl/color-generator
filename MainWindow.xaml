@@ -17,6 +17,12 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
         </ControlTemplate>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#99FFFFFF" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -69,14 +75,15 @@
 
                     <TextBlock
                         x:Name="HexText"
-                        Foreground="#99FFFFFF"
-                        HorizontalAlignment="Center"
-                        Text="#000000" FontSize="24" />
+                        Text="#000000" />
 
                     <TextBlock
-                            x:Name="RgbText"
-                            Foreground="#99FFFFFF"
-                            Text="rgb(0, 0, 0)" FontSize="24" />
+                        x:Name="RgbText"
+                        Text="rgb(0, 0, 0)" />
+
+                    <TextBlock
+                        x:Name="HslText"
+                        Text="hsl(0º, 0%, 0%)" />
 
                 </StackPanel>
             </Border>
