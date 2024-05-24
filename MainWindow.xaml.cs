@@ -8,8 +8,8 @@ public partial class MainWindow : Window
     private readonly Random random = new();
 
     private readonly byte[] rgbCode = [0, 0, 0];
-    private readonly string[] hexCode = ColorConvert.hexList;
-    private readonly float[] hslCode = ColorConvert.hslList;
+    private readonly string[] hexCode = Colors.Codes.HexCode;
+    private readonly float[] hslCode = Colors.Codes.HslCode;
 
     public MainWindow()
     {
@@ -42,15 +42,10 @@ public partial class MainWindow : Window
     {
         GenerateRgb();
 
-        ColorConvert.FromRgbToHex(rgbCode);
+        Colors.ConvertFrom.RgbToHex(rgbCode);
         HexText.Text = String.Format("#{0}{1}{2}", hexCode[0], hexCode[1], hexCode[2]);
 
-        ColorConvert.FromRgbToHsl(rgbCode);
-        HslText.Text = String.Format(
-            "hsl({0}º, {1}%, {2}%)",
-            ColorConvert.hslList[0],
-            ColorConvert.hslList[1],
-            ColorConvert.hslList[2]
-        );
+        Colors.ConvertFrom.RgbToHsl(rgbCode);
+        HslText.Text = String.Format("hsl({0}º, {1}%, {2}%)", hslCode[0], hslCode[1], hslCode[2]);
     }
 }
