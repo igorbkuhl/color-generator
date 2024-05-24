@@ -15,13 +15,7 @@ namespace RandomColorGenerator
     {
         private readonly Random random = new();
 
-        string rgbCode = "rgb(0, 0, 0)";
-
-        public string RgbCode
-        {
-            get { return rgbCode; }
-            set { rgbCode = value; }
-        }
+        private readonly byte[] rgbCode = [0, 0, 0];
 
         public MainWindow()
         {
@@ -38,15 +32,40 @@ namespace RandomColorGenerator
         public void GenerateRgb()
         {
             byte[] rgb = GenerateRandomBytes(3);
+
+            for (int i = 0; i < rgb.Length; i++)
+            {
+                rgbCode[i] = rgb[i];
+            }
+
             RgbText.Text = $"rgb({rgb[0]}, {rgb[1]}, {rgb[2]})";
             var backgroundColor = new SolidColorBrush(Color.FromArgb(255, rgb[0], rgb[1], rgb[2]));
 
             ColorArea.Fill = backgroundColor;
         }
 
+        public void GenerateHex(byte[] rgb)
+        {
+            string[] hexList = new string[3];
+
+            for (int i = 0; i < hexList.Length; i++)
+            {
+                string hexNum = Convert.ToString(rgb[i], 16);
+
+                if (hexNum.Length == 1)
+                {
+                    hexNum = "0" + hexNum;
+                }
+                hexList[i] = hexNum;
+            }
+
+            HexText.Text = "#" + hexList[0] + hexList[1] + hexList[2];
+        }
+
         private void GenerateNewColorsButton_Click(object sender, RoutedEventArgs e)
         {
             GenerateRgb();
+            GenerateHex(rgbCode);
         }
     }
 }
