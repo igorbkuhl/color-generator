@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RandomColorGenerator"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Random Color Generator"
         MinHeight="400" MinWidth="400"
         Height="600" Width="600">
     <Window.Resources>
