@@ -9,6 +9,7 @@ public partial class MainWindow : Window
 
     private readonly byte[] rgbCode = [0, 0, 0];
     private readonly string[] hexCode = ColorConvert.hexList;
+    private readonly float[] hslCode = ColorConvert.hslList;
 
     public MainWindow()
     {
@@ -40,7 +41,16 @@ public partial class MainWindow : Window
     private void GenerateNewColorsButton_Click(object sender, RoutedEventArgs e)
     {
         GenerateRgb();
+
         ColorConvert.FromRgbToHex(rgbCode);
-        HexText.Text = "#" + hexCode[0] + hexCode[1] + hexCode[2];
+        HexText.Text = String.Format("#{0}{1}{2}", hexCode[0], hexCode[1], hexCode[2]);
+
+        ColorConvert.FromRgbToHsl(rgbCode);
+        HslText.Text = String.Format(
+            "hsl({0}º, {1}%, {2}%)",
+            ColorConvert.hslList[0],
+            ColorConvert.hslList[1],
+            ColorConvert.hslList[2]
+        );
     }
 }
