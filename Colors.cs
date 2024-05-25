@@ -47,75 +47,48 @@ class Colors
 
         public static void RgbToHsl(byte[] rgb)
         {
-            float[] hsl = Codes.HslCode;
-            float h = hsl[0],
-                s = hsl[1],
-                l = hsl[2];
+            float r = rgb[0] / 255f;
+            float g = rgb[1] / 255f;
+            float b = rgb[2] / 255f;
 
-            float[] decimalRgb =
-            [
-                (float)rgb[0] / 255,
-                (float)rgb[1] / 255,
-                (float)rgb[2] / 255
-            ];
-            float r = decimalRgb[0],
-                g = decimalRgb[1],
-                b = decimalRgb[2];
+            float max = Math.Max(r, Math.Max(g, b));
+            float min = Math.Min(r, Math.Min(g, b));
+            float delta = max - min;
 
-            float max = float.MinValue,
-                min = float.MaxValue;
-            float d;
+            float h = 0f, s, l = (min + max) / 2;
 
-            foreach (float value in decimalRgb)
-            {
-                if (value > max)
-                {
-                    max = value;
-                }
-
-                if (value < min)
-                {
-                    min = value;
-                }
-            }
-
-            d = max - min;
-            l = (min + max) / 2;
-
-            if (d == 0)
+            if (delta == 0)
             {
                 s = 0;
             }
             else
             {
-                s = d / (1 - Math.Abs(2 * l - 1));
+                s = delta / (1 - Math.Abs(2 * l - 1));
             }
 
-            if (d == 0)
+            if (delta == 0)
             {
                 h = 0;
             }
             else if (max == r)
             {
-                h = ((((g - b) / d) % 6) + 6) % 6;
+                h = ((((g - b) / delta) % 6) + 6) % 6;
             }
             else if (max == g)
             {
-                h = (b - r) / d + 2;
+                h = (b - r) / delta + 2;
             }
             else if (max == b)
             {
-                h = (r - g) / d + 4;
+                h = (r - g) / delta + 4;
             }
 
+            float[] hsl = new float[3];
             hsl[0] = (float)Math.Round(h * 60);
             hsl[1] = (float)Math.Round(s * 100);
             hsl[2] = (float)Math.Round(l * 100);
 
-            for (int i = 0; i < rgb.Length; i++)
-            {
-                Codes.HslCode[i] = hsl[i];
-            }
+            Array.Copy(hsl, Codes.HslCode, hsl.Length);
         }
 
         public static void RgbToHsv(byte[] rgb)
