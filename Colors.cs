@@ -1,4 +1,6 @@
-﻿namespace RandomColorGenerator;
+﻿using Wacton.Unicolour;
+
+namespace RandomColorGenerator;
 
 class Colors
 {
@@ -8,6 +10,7 @@ class Colors
         private static float[] _hslCode = new float[3];
         private static float[] _hsvCode = new float[3];
         private static float[] _cmykCode = new float[4];
+        private static float[] _oklabCode = new float[3];
 
         public static string[] HexCode
         {
@@ -32,7 +35,15 @@ class Colors
             get { return _cmykCode; }
             set { _cmykCode = value; }
         }
+
+        public static float[] OklabCode
+        {
+            get { return _oklabCode; }
+            set { _oklabCode = value; }
+        }
+
     }
+
 
     public static class ConvertFrom
     {
@@ -177,6 +188,38 @@ class Colors
 
             float[] cmyk = new float[] { c, m, y, k };
             Array.Copy(cmyk, Codes.CmykCode, cmyk.Length);
+        }
+
+        public static void RgbToOklab(byte[] rgb)
+        {
+            float r = SrgbToLinear(rgb[0] / 255f);
+            float g = SrgbToLinear(rgb[1] / 255f);
+            float b = SrgbToLinear(rgb[2] / 255f);
+
+            float l = 0.4122214708f * r + 0.5363325363f * g + 0.0514459929f * b;
+            float m = 0.2119034982f * r + 0.6806995451f * g + 0.1073969566f * b;
+            float s = 0.0883024619f * r + 0.2817188376f * g + 0.6299787005f * b;
+
+            float l_ = Cbrt(l);
+            float m_ = Cbrt(m);
+            float s_ = Cbrt(s);
+
+            float L = 0.2104542553f * l_ + 0.7936177850f * m_ - 0.0040720468f * s_;
+            float A = 1.9779984951f * l_ - 2.4285922050f * m_ + 0.4505937099f * s_;
+            float B = 0.0259040371f * l_ + 0.7827717662f * m_ - 0.8086757660f * s_;
+
+            float[] oklab = new float[] { L, A, B };
+            Array.Copy(oklab, Codes.OklabCode, oklab.Length);   
+        }
+
+        private static float SrgbToLinear(float c)
+        {
+            return (c <= 0.04045f) ? (c / 12.92f) : (float)Math.Pow((c + 0.055f) / 1.055f, 2.4f);
+        }
+
+        private static float Cbrt(float x)
+        {
+            return (x > 0) ? (float)Math.Pow(x, 1.0 / 3.0) : (x < 0) ? -(float)Math.Pow(-x, 1.0 / 3.0) : 0;
         }
     }
 }
