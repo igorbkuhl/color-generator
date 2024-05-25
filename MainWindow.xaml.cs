@@ -11,6 +11,7 @@ public partial class MainWindow : Window
     private readonly string[] hexCode = Colors.Codes.HexCode;
     private readonly float[] hslCode = Colors.Codes.HslCode;
     private readonly float[] hsvCode = Colors.Codes.HsvCode;
+    private readonly float[] cmykCode = Colors.Codes.CmykCode;
 
     public MainWindow()
     {
@@ -51,5 +52,8 @@ public partial class MainWindow : Window
 
         Colors.ConvertFrom.RgbToHsv(rgbCode);
         HsvText.Text = String.Format("hsv({0}º, {1}%, {2}%)", hsvCode[0], hsvCode[1], hsvCode[2]);
+
+        Colors.ConvertFrom.RgbToCmyk(rgbCode);
+        CmykText.Text = String.Format("cmyk({0}%, {1}%, {2}%, {3}%)", cmykCode[0], cmykCode[1], cmykCode[2], cmykCode[3]);
     }
 }
