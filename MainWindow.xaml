@@ -85,6 +85,10 @@
                         x:Name="HslText"
                         Text="hsl(0º, 0%, 0%)" />
 
+                    <TextBlock
+                        x:Name="HsvText"
+                        Text="hsv(0º, 0%, 0%)" />
+
                 </StackPanel>
             </Border>
         </Grid>
