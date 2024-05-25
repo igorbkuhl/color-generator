@@ -33,7 +33,7 @@
         <Grid VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
-                <RowDefinition Height="200" />
+                <RowDefinition Height="250" />
             </Grid.RowDefinitions>
 
             <Border
@@ -92,6 +92,10 @@
                     <TextBlock
                         x:Name="CmykText"
                         Text="cmyk(0%, 0%, 0%, 0%)" />
+
+                    <TextBlock
+                        x:Name="OklabText"
+                        Text="oklab(0.00, 0.00, 0.00)" />
 
                 </StackPanel>
             </Border>
