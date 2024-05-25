@@ -10,6 +10,7 @@ public partial class MainWindow : Window
     private readonly byte[] rgbCode = [0, 0, 0];
     private readonly string[] hexCode = Colors.Codes.HexCode;
     private readonly float[] hslCode = Colors.Codes.HslCode;
+    private readonly float[] hsvCode = Colors.Codes.HsvCode;
 
     public MainWindow()
     {
@@ -47,5 +48,8 @@ public partial class MainWindow : Window
 
         Colors.ConvertFrom.RgbToHsl(rgbCode);
         HslText.Text = String.Format("hsl({0}º, {1}%, {2}%)", hslCode[0], hslCode[1], hslCode[2]);
+
+        Colors.ConvertFrom.RgbToHsv(rgbCode);
+        HsvText.Text = String.Format("hsv({0}º, {1}%, {2}%)", hsvCode[0], hsvCode[1], hsvCode[2]);
     }
 }
