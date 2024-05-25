@@ -7,6 +7,7 @@ class Colors
         private static string[] _hexCode = new string[3];
         private static float[] _hslCode = new float[3];
         private static float[] _hsvCode = new float[3];
+        private static float[] _cmykCode = new float[4];
 
         public static string[] HexCode
         {
@@ -24,6 +25,12 @@ class Colors
         {
             get { return _hsvCode; }
             set { _hsvCode = value; }
+        }
+
+        public static float[] CmykCode
+        {
+            get { return _cmykCode; }
+            set { _cmykCode = value; }
         }
     }
 
@@ -137,6 +144,39 @@ class Colors
             hsv[2] = (float)Math.Round(v * 100);
 
             Array.Copy(hsv, Codes.HsvCode, hsv.Length);
+        }
+
+        public static void RgbToCmyk(byte[] rgb)
+        {
+            float r = rgb[0] / 255f;
+            float g = rgb[1] / 255f;
+            float b = rgb[2] / 255f;
+
+            float c = 1 - r;
+            float m = 1 - g;
+            float y = 1 - b;
+            float k = Math.Min(c, Math.Min(m, y));
+
+            if (k < 1)
+            {
+                c = (c - k) / (1 - k);
+                m = (m - k) / (1 - k);
+                y = (y - k) / (1 - k);
+            }
+            else
+            {
+                c = 0;
+                m = 0;
+                y = 0;
+            }
+
+            c = (float)Math.Round(c * 100);
+            m = (float)Math.Round(m * 100);
+            y = (float)Math.Round(y * 100);
+            k = (float)Math.Round(k * 100);
+
+            float[] cmyk = new float[] { c, m, y, k };
+            Array.Copy(cmyk, Codes.CmykCode, cmyk.Length);
         }
     }
 }
