@@ -1,6 +1,4 @@
-﻿using Wacton.Unicolour;
-
-namespace RandomColorGenerator;
+﻿namespace RandomColorGenerator;
 
 class Colors
 {
